@@ -69,12 +69,11 @@ const UserController = {
 
   //verify user at login 
   async verifyUser  (req, res, next)  {
-    const userEmail = req.body.email;
-    const userPassword = req.body.password;
-    User.findOne({email : req.body.email}, (err, user) => {
-      req.newUserID = user._id.toString();
+    const inputUsername = req.body.username;
+    const inputPassword = req.body.password;
+    User.findOne({username: inputUsername}, (err, user) => {
         bcrypt
-          .compare(req.body.password, user.password)
+          .compare(inputPassword, user.password)
           .then((result) => {
             // res.locals.user = user
             console.log('Result is:' ,result);
