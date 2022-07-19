@@ -3,6 +3,10 @@ const router = express.Router();
 
 const UserController = require('../controllers/UserController');
 
+//verify that user exists in a database 
+router.post('/login', UserController.verifyUser, (req, res) => res.status(200).json(res.locals.user))
+
+
 // Create a user in the database
 router.post('/', UserController.createUser, (req, res) =>
   res.status(201).json(res.locals.newUser)

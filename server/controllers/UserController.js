@@ -1,28 +1,49 @@
 const { request } = require('express');
 const { User } = require('../models/dbModels');
+const bcrypt = require('bcryptjs');
 
 const UserController = {
 
   // Create a new user in the database
   // information will be sent in the request body
-  createUser(req, res, next) {
+  async createUser(req, res, next) {
     // deconstruct the req body (excluding favorites since not part of signup)
-    const { username, password, zipcode, birthday, cookie } = req.body;
-
-    // add user to the database
-    User.create( { username, password, zipcode, birthday, cookie } ) 
+    const { username, password, zipcode, firstName, lastName } = req.body;
+    
+    //hash the password using bcrypt
+    //store the hashed password in the database 
+    const hashPassword = await bcrypt.hash(password, 10);
+    console.log('1')
+    
+    User.find({username: username})
       .then(data => {
-        res.locals.newUser = data;
-        console.log('New User: ',data);
-        return next();
+        if (data.length === 0) {
+          // add user to the database
+          User.create( { username, password: hashPassword, zipcode, firstName, lastName } ) 
+            .then(data => {
+              res.locals.newUser = true;
+              console.log('New User: ', data);
+              return next();
+            })
+            .catch(err => {
+              return next({
+                log: `Error occurred in createUser method of UserController : ${err}`,
+                status: 400,
+                message: { err : 'An error occurred while creating a new user'}
+              });
+            });
+        } 
+        else {
+          res.locals.newUser = false
+        }
       })
       .catch(err => {
         return next({
           log: `Error occurred in createUser method of UserController : ${err}`,
           status: 400,
-          message: { err : 'An error occurred while creating a new user'}
+          message: { err : 'UserController.createUser error. Error in User.find'}
         });
-      });
+      })
   },
 
   // Grab user information from the database
@@ -44,6 +65,28 @@ const UserController = {
           message: { err: 'An error occured while trying to get user'}
         });
       });
+  },
+
+  //verify user at login 
+  async verifyUser  (req, res, next)  {
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
+    User.findOne({email : req.body.email}, (err, user) => {
+      req.newUserID = user._id.toString();
+        bcrypt
+          .compare(req.body.password, user.password)
+          .then((result) => {
+            // res.locals.user = user
+            console.log('Result is:' ,result);
+            if (!result) {
+              res.locals.user = false;
+            } else {
+              res.locals.user = true;
+              return next();
+            }
+          })
+          .catch((err) => next('Error getting user from database: ' + JSON.stringify(err)))
+    });
   },
 
   // Adds a favorite workspace to the user favorites list
