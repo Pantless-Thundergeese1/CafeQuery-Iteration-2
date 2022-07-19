@@ -16,12 +16,15 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-  // birthday: {
-  //   type: Date,
-  //   required: true
-  // },
-  cookie: String,
-  favorites: Array
+  favorites: Array, 
+  firstName: {
+    type: String, 
+    required: true
+  }, 
+  lastName: {
+    type: String, 
+    required: true
+  }
 });
 
 // Schema for 'workspaces' collection
