@@ -32,7 +32,6 @@ const WorkspaceController = {
   getWorkspace(req, res, next) {
     // deconstruct the username that will be sent in the request parameter
     const { workspace_id } = req.params;
-
     // finds workspace from the database
     Workspace.findOne({_id: workspace_id})
       .then(data => {

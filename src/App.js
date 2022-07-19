@@ -15,7 +15,7 @@ function App()  {
     return (
       <>
         <Router>
-        <Navbar className="navbar" expand="lg">
+        {/* <Navbar className="navbar" expand="lg">
           <img src="./option1.png" className="icon" alt=""/>
           <LinkContainer to="/">
               <Navbar.Brand>CafeQuery</Navbar.Brand>
@@ -31,16 +31,19 @@ function App()  {
           </LinkContainer>
           <LinkContainer to="/logIn">
               <Nav.Link>Log In/Sign Up</Nav.Link>
-          </LinkContainer>   
+          </LinkContainer> 
+          <LinkContainer to="/signUp">
+              <Nav.Link>Sign Up</Nav.Link>
+          </LinkContainer>     
           </Nav>
           </Navbar.Collapse>
-          </Navbar>
+          </Navbar> */}
           <Routes>
-            <Route path='/' element={<App />}></Route>
-              <Route index element ={< HomePage />}></Route>
-              <Route path='display' element ={< DisplayContainer />}></Route>
+            <Route path='/' element={<Login />}></Route>
+              <Route path='home' element ={< HomePage />}></Route>
               <Route path='add' element ={< AddSpaceReview />}></Route>
               <Route path='login' element ={<Login />}></Route>
+              <Route path='signup' element ={<Signup />}></Route>
               
           </Routes>
           
