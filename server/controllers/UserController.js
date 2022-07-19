@@ -18,7 +18,7 @@ const UserController = {
           //hash the password using bcrypt
           //store the hashed password in the database 
           const hashPassword = await bcrypt.hash(password, 10);
-          
+
           User.create( { username, password: hashPassword, zipcode, firstName, lastName } ) 
             .then(data => {
               res.locals.newUser = true;
@@ -87,7 +87,7 @@ const UserController = {
           })
           .catch((err) => next('Error getting user from database: ' + JSON.stringify(err)))
     });
-  }
+  },
 
   // Adds a favorite workspace to the user favorites list
   // username will be the parameter and the workspace_id will be in the body
