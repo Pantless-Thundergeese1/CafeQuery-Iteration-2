@@ -5,6 +5,8 @@ import { Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
 import DisplayContainer from './DisplayContainer';
 import axios from 'axios';
+import Login from '../components/Login'
+import NavBar from '../components/NavBar';
 
 //import * as actions from '../actions';
 
@@ -37,6 +39,7 @@ const HomePage = () => {
 
   return (
       <>
+      <NavBar/>
         <div className="searchForm">
             <input type="text" placeholder="Search for a cafe or zipcode..." className="search-field" onChange={(e) => setSearch(e.target.value)}/>
             <button onClick={handleAddZipcode} type="submit" className="search-button">

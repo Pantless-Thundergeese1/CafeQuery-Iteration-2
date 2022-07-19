@@ -9,16 +9,16 @@ const UserController = {
   async createUser(req, res, next) {
     // deconstruct the req body (excluding favorites since not part of signup)
     const { username, password, zipcode, firstName, lastName } = req.body;
-
+    
+    //hash the password using bcrypt
+    //store the hashed password in the database 
+    const hashPassword = await bcrypt.hash(password, 10);
+    console.log('1')
+    
     User.find({username: username})
       .then(data => {
         if (data.length === 0) {
           // add user to the database
-
-          //hash the password using bcrypt
-          //store the hashed password in the database 
-          const hashPassword = await bcrypt.hash(password, 10);
-          
           User.create( { username, password: hashPassword, zipcode, firstName, lastName } ) 
             .then(data => {
               res.locals.newUser = true;
@@ -68,7 +68,7 @@ const UserController = {
   },
 
   //verify user at login 
-  verifyUser = async (req, res, next) => {
+  async verifyUser  (req, res, next)  {
     const userEmail = req.body.email;
     const userPassword = req.body.password;
     User.findOne({email : req.body.email}, (err, user) => {
@@ -87,7 +87,7 @@ const UserController = {
           })
           .catch((err) => next('Error getting user from database: ' + JSON.stringify(err)))
     });
-  }
+  },
 
   // Adds a favorite workspace to the user favorites list
   // username will be the parameter and the workspace_id will be in the body
