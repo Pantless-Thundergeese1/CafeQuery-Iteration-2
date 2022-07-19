@@ -1,0 +1,130 @@
+$primary-color: white;
+$bg: black;
+$peach: #f6d78d;
+
+@import url('https://fonts.googleapis.com/css2?family=Twinkle+Star&display=swap');
+
+h1 {
+  color: $primary-color;
+  background-color: $bg;
+}
+
+.navbar {
+  background-color: $peach;
+}
+
+.navbar-brand {
+  font-family: 'Twinkle Star';
+  font-size: 35px;
+}
+
+body {
+  background-image: url('./background.jpg');
+}
+
+.searchContainer {
+  margin: 200px auto;
+  width: 500px;
+  height: 60px;
+}
+
+.searchForm {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-field {
+  width: 35%;
+  padding: 10px 35px 10px 15px;
+  border: none;
+  border-radius: 100px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 300px;
+  font-family: 'Twinkle Star';
+}
+
+.search-button {
+  background: transparent;
+  border: none;
+  outline: none;
+  margin-left: -33px;
+  margin-top: 300px;
+}
+
+.search-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+}
+
+.appDescription {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 3%;
+  color: $peach;
+  text-align: center;
+  font-size: 15px;
+}
+
+.icon {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.LocationDisplay {
+  color: white;
+  border: 1px solid white;
+  border-color: white;
+  border-width: 5px;
+  text-align: center;
+  margin-top: 30%;
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-bottom: 30%; 
+}
+
+h4{
+  font-size: 20px;
+}
+
+.review {
+  color: white;
+  border: 1px solid white;
+  border-color: $peach;
+  border-width: 5px;
+  text-align: center;
+  margin-top: 10%;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-bottom: 30%; 
+  font-size: 25px !important;
+  padding: 50px 40px 50px 40px !important;
+}
+
+.login_form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  margin-right: 20px;
+  margin-left: 20px;
+  padding: 10px 35px 10px 15px !important;
+}
+
+h7{
+  color: $peach;
+  font-family: 'Twinkle Star';
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20%;
+  font-size: 40px;
+}
