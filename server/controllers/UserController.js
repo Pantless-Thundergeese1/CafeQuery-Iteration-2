@@ -114,13 +114,27 @@ const UserController = {
   },
 
   getFavorites(req, res, next) {
-    const {favoritesArray} = req.body; 
+    console.log("inside UserController.getFavorites");
+    
+    const userID = req.params.username;
 
-    Workspace.find({_id:{$in:favoritesArray}})
-    .then(data => {
-      res.locals.favorites = data;
-      console.log('Favorite workspaces as objects: ', data);
-      return next();
+    User.find({_id: userID})
+    .then(user => {
+      let favoritesArray = user[0].favorites;  
+      
+      Workspace.find({_id:{$in:favoritesArray}})
+      .then(data => {
+        res.locals.favorites = data;
+        console.log('Favorite workspaces as objects: ', data);
+        return next();
+      })
+      .catch(err => {
+        return next({
+          log: `Error caught in getFavorites method of UserController : ${err}`,
+          status: 400,
+          message: { err: 'An error occured when trying to find a workspace listed in user favorites'}
+        })
+      });
     })
     .catch(err => {
       return next({
