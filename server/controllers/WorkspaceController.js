@@ -122,9 +122,7 @@ const WorkspaceController = {
   getWorkspaceByAdvancedSearch(req, res, next) {
     console.log('req.body', req.body);
 
-    const { filters } = req.body;
-
-    Workspace.find({filters})
+    Workspace.find(req.body)
     .then(data => {
       if (data.length > 0) {
         res.locals.advancedSearch = data;
