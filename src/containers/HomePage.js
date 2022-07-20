@@ -24,7 +24,7 @@ const HomePage = () => {
     // prevents page reload
     // event.preventDefault();
 
-    axios.get(`/workspace/${search}`)
+    axios.post('/workspace/search', { searchBarInput: search})
     .then(res => {
       console.log('this is result', res.data);
     //   console.log(locationsLoaded);
