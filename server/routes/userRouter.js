@@ -18,12 +18,17 @@ router.get('/:username', UserController.getUser, (req, res) => {
 });
 
 // Adds a workspace to the user favorites
-router.patch('/:username', UserController.addFavorite, (req, res) =>
+router.put('/favorites', UserController.addFavorite, (req, res) =>
+  res.status(200).json(res.locals.updatedUser)
+);
+
+// deletes a workspace from the user favorites
+router.delete('/favorites', UserController.deleteFavorite, (req, res) =>
   res.status(200).json(res.locals.updatedUser)
 );
 
 // Deletes a user from the database
-router.delete('/:username', UserController.deleteUser, (req, res) =>
+router.delete('/:user', UserController.deleteUser, (req, res) =>
   res.status(200).json(res.locals.deletedUser)
 );
 
