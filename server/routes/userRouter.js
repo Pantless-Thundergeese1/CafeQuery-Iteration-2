@@ -12,6 +12,11 @@ router.post('/', UserController.createUser, (req, res) =>
   res.status(201).json(res.locals.newUser)
 );
 
+//get all user favorites
+router.get('/profile/:username', UserController.getFavorites, (req, res) => {
+  res.status(200).json(res.locals.favorites);
+});
+
 // Gets a user from the database
 router.get('/:username', UserController.getUser, (req, res) => {
   res.status(200).json(res.locals.user);
@@ -31,5 +36,5 @@ router.delete('/favorites', UserController.deleteFavorite, (req, res) =>
 router.delete('/:user', UserController.deleteUser, (req, res) =>
   res.status(200).json(res.locals.deletedUser)
 );
-
+//router.get('/profile/:id')
 module.exports = router;

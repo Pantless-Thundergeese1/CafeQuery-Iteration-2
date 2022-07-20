@@ -60,7 +60,7 @@ const AdvancedSearch = () => {
     // console.log(reqBody)
 
     // send POST request to server with new workspace info in body
-    axios.post('/advancedSearch', reqBody)
+    axios.post('/workspace/advancedSearch', reqBody)
       .then(res => {
         console.log('Response from advanced search: ', res);
       })

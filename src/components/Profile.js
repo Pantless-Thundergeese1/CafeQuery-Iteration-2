@@ -1,33 +1,37 @@
 import React, { useState } from 'react';
 import Navbar from "./NavBar"
-
+import DisplayContainer from "../containers/DisplayContainer"
 
 // user/favorite/:_id
 const Profile = () => { 
-const getFaves = localStorage.getItem('user')
-console.log('getFaves' , getFaves)
 
-const handleTest = (e) => {
-    e.preventDefault();
-    const getFaves = localStorage.getItem('faves')
-    console.log('getFaves' , getFaves)
+const [locations, setLocations] = useState('');    
 
-}
+const user = JSON.parse(localStorage.getItem('user'))
+const _id = user._id;
 
 
-const user = localStorage.getItem('user');
+fetch(`/user/profile/${_id}`,{
 
-return (
-<>
-    <Navbar/>
-    <div>
-        <button onClick={handleTest}>
-            testFaves
-        </button>
-
-    </div>
-</>
-    )   
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+    }
+)
+    .then(data => data.json())
+    .then(response => {
+        setLocations(res.data)
+        return (
+            <>
+                <Navbar/>
+                <div>
+                <DisplayContainer locations = {response}/>
+                </div>
+            </>
+                )   
+    }) .catch(error =>  {
+        console.log('error in profile.js', error)
+    })
+    return null;
 }
 
 export default  Profile;
