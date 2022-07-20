@@ -56,7 +56,7 @@ const WorkspaceController = {
     
     const { searchBarInput } = req.body;
 
-    if (typeof searchBarInput === 'number') {
+    if (!isNaN(searchBarInput)) {
       if (searchBarInput.toString().length !== 5){
         return next({
           log: `User input error: entered input was less than 5 digits`,
@@ -64,29 +64,29 @@ const WorkspaceController = {
           message: {err: 'Please enter a 5 digit zipcode'}})
       };
 
-    // finds workspace from the database by ZIPCODE 
-    Workspace.find({zipcode: searchBarInput})
-    .then(data => {
-      if (data.length > 0) {
-        res.locals.workspace = data;
-        console.log('Found workspace:', res.locals.workspace);
-        return next();
-      }
-      else {
+      // finds workspace from the database by ZIPCODE 
+      Workspace.find({zipcode: searchBarInput})
+      .then(data => {
+        if (data.length > 0) {
+          res.locals.workspace = data;
+          console.log('Found workspace:', res.locals.workspace);
+          return next();
+        }
+        else {
+          return next({
+            log: `No locations found in that zip code.`,
+            status: 400,
+            message: {err: 'No locations found in that zip code.'}
+          })
+        }
+      })
+      .catch(err => {
         return next({
-          log: `No locations found in that zip code.`,
+          log: `Error occured in getWorkspaceBySearch method of WorkspaceController : ${err}`,
           status: 400,
-          message: {err: 'No locations found in that zip code.'}
-        })
-      }
-    })
-    .catch(err => {
-      return next({
-        log: `Error occured in getWorkspaceBySearch method of WorkspaceController : ${err}`,
-        status: 400,
-        message: { err: 'An error occured while trying to get workspace'}
+          message: { err: 'An error occured while trying to get workspace'}
+        });
       });
-    });
     } else if (typeof searchBarInput === 'string') {
     const regex = new RegExp(searchBarInput, 'i'); // i for case insensitive 
       console.log ("regex", regex);

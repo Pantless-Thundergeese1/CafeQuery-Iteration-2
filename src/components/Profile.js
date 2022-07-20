@@ -3,7 +3,8 @@ import Navbar from "./NavBar"
 
 
 // user/favorite/:_id
-const getFaves = localStorage.getItem('faves')
+const Profile = () => { 
+const getFaves = localStorage.getItem('user')
 console.log('getFaves' , getFaves)
 
 const handleTest = (e) => {
@@ -13,7 +14,7 @@ const handleTest = (e) => {
 
 }
 
-const Profile = () => { 
+
 const user = localStorage.getItem('user');
 
 return (
@@ -26,8 +27,7 @@ return (
 
     </div>
 </>
-)
-
+    )   
 }
 
 export default  Profile;
