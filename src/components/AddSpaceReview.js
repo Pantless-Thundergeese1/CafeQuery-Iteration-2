@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Navbar from "./NavBar"
+import { useNavigate } from 'react-router';
 
 const addSpaceReview = () => {
   const [name, setName] = useState('');
@@ -21,6 +23,7 @@ const addSpaceReview = () => {
   const [seating, setSeating] = useState('');
   const [additional, setAdditional] = useState('');
 
+  let navigate = useNavigate();
   // function to handle button click for add Space
   const handleAddSpace = (event) => {
     // we want to pass all of the input values to an object to pass to the db
@@ -60,10 +63,12 @@ const addSpaceReview = () => {
       .catch(err => {
         console.log(err);
       })
+      navigate('/home')
   }
   
   return (
     <>
+    <Navbar/>
       <h7>Add a Review for a Workspace</h7>
       <div className='review'>
         <form className='location_submission'>

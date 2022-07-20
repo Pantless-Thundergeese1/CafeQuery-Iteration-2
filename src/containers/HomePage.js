@@ -24,17 +24,16 @@ const HomePage = () => {
     // prevents page reload
     // event.preventDefault();
 
-    axios.get(`/workspace/${search}`)
-    .then(res => {
-      console.log('this is result', res.data);
-    //   console.log(locationsLoaded);
-      setLocations(res.data)
-      locationsLoaded = true;
-      console.log('this is the updated location array', locations);
-      
-  })
-    //error handling
-    .catch(error => {console.log('Error:', error);});
+    axios.post('/workspace/search', { searchBarInput: search})
+      .then(res => {
+        console.log('this is result', res.data);
+      //   console.log(locationsLoaded);
+        setLocations(res.data)
+        locationsLoaded = true;
+        console.log('this is the updated location array', locations);
+      })
+      //error handling
+      .catch(error => {console.log('Error:', error);}); 
   }
 
   return (

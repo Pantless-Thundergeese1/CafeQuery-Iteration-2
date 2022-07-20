@@ -9,7 +9,7 @@ const DisplayContainer = (props) => {
     const locationArray = []; 
     for (let i = 0; i < props.locations.length; i++){
       //pass in response body into as props to display spaces
-      locationArray.push(<DisplaySpaces key={props.locations[i]} resultObject={props.locations[i]} />);
+      locationArray.push(<DisplaySpaces resultObject={props.locations[i]} />);
     }
     //render search bar for zip code search and then resuls of the zip code search
     return(

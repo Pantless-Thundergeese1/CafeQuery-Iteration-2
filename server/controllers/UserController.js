@@ -91,12 +91,13 @@ const UserController = {
   // Adds a favorite workspace to the user favorites list
   // username will be the parameter and the workspace_id will be in the body
   addFavorite(req, res, next) {
-    const { username } = req.params;
-    // unsure if should use workspace name or wor
-    const { workspace_id } = req.body;
-
-    // find based on username param
+    const { username, workspace_id } = req.body;
+    console.log('username', username);
+    console.log('workspace_id', workspace_id);
+    
+    // find based on username 
     // push the workspace_id to the favorites array
+    //use $pull to delete a workspace from favorites!!
     User.findOneAndUpdate({ username: username }, { "$push": { favorites: workspace_id }})
       .then(data => {
         res.locals.updatedUser = data;
@@ -111,6 +112,28 @@ const UserController = {
         })
       });
   },
+
+  deleteFavorite(req, res, next) {
+    const { username } = req.body;
+    const { workspace_id } = req.body;
+
+    // find based on username 
+    //use $pull to delete a workspace from favorites!!
+    User.findOneAndUpdate({ username: username }, { "$pull": { favorites: workspace_id }})
+      .then(data => {
+        res.locals.updatedUser = data;
+        console.log('Updated user: ', data);
+        return next();
+      })
+      .catch(err => {
+        return next({
+          log: `Error caught in addFavorite method of UserController : ${err}`,
+          status: 400,
+          message: { err: 'An error occured when trying to add a new favorite'}
+        })
+      });
+  },
+
 
   // Deletes the user from the database
   // username will be the parameter
