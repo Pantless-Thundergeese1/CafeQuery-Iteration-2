@@ -6,9 +6,40 @@ const DisplaySpaces = (props) => {
   
 //display information received in the result body 
 //from the databse query to locations
+console.log('props.result', props.resultObject)
+console.log('user ID', JSON.parse(localStorage.getItem('user'))._id)
+console.log('username for user', JSON.parse(localStorage.getItem('user')).username)
+console.log('coffeeshop Id', props.resultObject._id)
+
+
+//define reqBody
+const reqBody = {
+  _id: JSON.parse(localStorage.getItem('user'))._id ,
+  username: JSON.parse(localStorage.getItem('user')).username ,
+  workspace_id: props.resultObject._id
+}
+
+
+const handleClick = (e) => {
+  e.preventDefault()
+
+// req.body {_id, username}
+//PUT method
+
+
+  fetch('user/favorites', {
+    method: 'PUT',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(reqBody)})
+    .then(data => data.json())
+    .then(response => {
+      console.log('clicked')
+    })
+  }
+
 
   return(
-    <>
+    <> 
       <div className="LocationDisplay">
         <h4>Name: {props.resultObject.workspaceName}</h4> <br></br>
         <h4>Address: {props.resultObject.address}</h4><br></br>
@@ -25,6 +56,7 @@ const DisplaySpaces = (props) => {
         <h4>Food rating: {props.resultObject.foodRating}</h4><br></br>
         <h4>Coffee rating: {props.resultObject.coffeeRating}</h4><br></br>
         <h4>Seating: {props.resultObject.seating}</h4><br></br>
+        <button onClick={handleClick}>add favorite</button>
       </div>
     </>
   );

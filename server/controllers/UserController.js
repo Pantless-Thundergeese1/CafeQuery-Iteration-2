@@ -80,7 +80,8 @@ const UserController = {
             if (!result) {
               res.locals.user = false;
             } else {
-              res.locals.user = true;
+              res.locals.user = user;
+              res.locals.userData = user;
               return next();
             }
           })
