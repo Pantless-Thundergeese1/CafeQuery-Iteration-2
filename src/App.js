@@ -10,7 +10,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
-
+import Profile from "./components/Profile";
 function App()  {
     return (
       <>
@@ -44,7 +44,7 @@ function App()  {
               <Route path='add' element ={< AddSpaceReview />}></Route>
               <Route path='login' element ={<Login />}></Route>
               <Route path='signup' element ={<Signup />}></Route>
-              
+              <Route path='profile' element ={<Profile />}></Route>
           </Routes>
           
         </Router>

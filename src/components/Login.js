@@ -40,7 +40,12 @@ const Login = () => {
           alert("Password incorrect");
         }
         else {
-         navigate('/home')
+        console.log('formattedData:' , formattedData)
+        localStorage.setItem(
+          'user',
+          JSON.stringify({...formattedData})
+        );
+        navigate('/home')
         }
       })
       document.getElementById('username').value = '';

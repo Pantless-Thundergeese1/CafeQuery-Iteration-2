@@ -25,16 +25,15 @@ const HomePage = () => {
     // event.preventDefault();
 
     axios.post('/workspace/search', { searchBarInput: search})
-    .then(res => {
-      console.log('this is result', res.data);
-    //   console.log(locationsLoaded);
-      setLocations(res.data)
-      locationsLoaded = true;
-      console.log('this is the updated location array', locations);
-      
-  })
-    //error handling
-    .catch(error => {console.log('Error:', error);});
+      .then(res => {
+        console.log('this is result', res.data);
+      //   console.log(locationsLoaded);
+        setLocations(res.data)
+        locationsLoaded = true;
+        console.log('this is the updated location array', locations);
+      })
+      //error handling
+      .catch(error => {console.log('Error:', error);}); 
   }
 
   return (
