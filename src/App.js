@@ -8,6 +8,7 @@ import DisplayContainer from './containers/DisplayContainer';
 import HomePage from './containers/HomePage';
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import AdvancedSearch from './components/AdvancedSearch.jsx';
 import { Navbar, Nav} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
 import Profile from "./components/Profile";
@@ -39,11 +40,12 @@ function App()  {
           </Navbar.Collapse>
           </Navbar> */}
           <Routes>
-            <Route path='/' element={<Login />}></Route>
+            <Route path='/' element={<AdvancedSearch />}></Route>
               <Route path='home' element ={< HomePage />}></Route>
               <Route path='add' element ={< AddSpaceReview />}></Route>
               <Route path='login' element ={<Login />}></Route>
               <Route path='signup' element ={<Signup />}></Route>
+              {/* <Route path='advancedSearch' element ={<AdvancedSearch/>}></Route> */}
               <Route path='profile' element ={<Profile />}></Route>
           </Routes>
           
