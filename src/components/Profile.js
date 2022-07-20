@@ -19,7 +19,7 @@ fetch(`/user/profile/${_id}`,{
 )
     .then(data => data.json())
     .then(response => {
-        setLocations(res.data)
+        setLocations(response)
         return (
             <>
                 <Navbar/>
