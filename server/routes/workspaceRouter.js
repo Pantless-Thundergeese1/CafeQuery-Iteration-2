@@ -13,7 +13,9 @@ router.post('/', WorkspaceController.createWorkspace,
 
 // Gets a workspace from the database
 // router.get(['/:workspace_id', '/:zipcodeSearch'], WorkspaceController.getWorkspaceByZip,
-//   (req, res) => res.status(200).json(res.locals.workspace));n
+//   (req, res) => res.status(200).json(res.locals.workspace));
+
+
 
 // Deletes a workspace from the database
 router.delete('/:workspace_id', WorkspaceController.deleteWorkspace,
