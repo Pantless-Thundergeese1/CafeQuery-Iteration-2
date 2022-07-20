@@ -76,7 +76,7 @@ const UserController = {
           .compare(inputPassword, user.password)
           .then((result) => {
             // res.locals.user = user
-            console.log('Result is:' ,result);
+            console.log('Result is:' , user);
             if (!result) {
               res.locals.user = false;
             } else {

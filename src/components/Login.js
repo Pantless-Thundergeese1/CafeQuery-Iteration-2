@@ -51,7 +51,6 @@ const Login = () => {
       document.getElementById('username').value = '';
       document.getElementById('password').value = '';
     }
-  
     
 
   return (
