@@ -3,6 +3,9 @@ const router = express.Router();
 
 const WorkspaceController = require('../controllers/WorkspaceController');
 
+router.post('/advancedSearch', WorkspaceController.getWorkspaceByAdvancedSearch,
+  (req, res) => res.status(200).json(res.locals.advancedSearch));
+
 //Gets a workspace from a zipcode or name search
 router.post('/search', WorkspaceController.getWorkspaceBySearch,
   (req, res) => res.status(200).json(res.locals.workspace));

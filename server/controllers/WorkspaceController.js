@@ -119,6 +119,34 @@ const WorkspaceController = {
     
   },
 
+  getWorkspaceByAdvancedSearch(req, res, next) {
+    console.log('req.body', req.body);
+
+    Workspace.find(req.body)
+    .then(data => {
+      if (data.length > 0) {
+        res.locals.advancedSearch = data;
+        console.log('Found advanced search results:', res.locals.advancedSearch);
+        return next();
+      }
+      else {
+        return next({
+          log: `No locations found with advanced search.`,
+          status: 400,
+          message: {err: 'No locations found with those advanced search filters.'}
+        })
+      }
+    })
+    .catch(err => {
+      return next({
+        log: `Error occured in getWorkspaceByAdvancedSearch method of WorkspaceController : ${err}`,
+        status: 400,
+        message: { err: 'An error occured while trying to do advanced workspace search.'}
+      });
+    });
+  },
+
+
   // Deletes the workspace from the database
   // workspace_id will be the parameter
   deleteWorkspace(req, res, next) {
