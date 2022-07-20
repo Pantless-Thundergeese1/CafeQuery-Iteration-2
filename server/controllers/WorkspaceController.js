@@ -56,7 +56,7 @@ const WorkspaceController = {
     
     const { searchBarInput } = req.body;
 
-    if (typeof searchBarInput === 'number') {
+    if (!isNaN(searchBarInput)) {
       if (searchBarInput.toString().length !== 5){
         return next({
           log: `User input error: entered input was less than 5 digits`,

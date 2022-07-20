@@ -3,17 +3,17 @@ const router = express.Router();
 
 const WorkspaceController = require('../controllers/WorkspaceController');
 
+//Gets a workspace from a zipcode or name search
+router.post('/search', WorkspaceController.getWorkspaceBySearch,
+  (req, res) => res.status(200).json(res.locals.workspace));
+
 // Create a workspace in the database
 router.post('/', WorkspaceController.createWorkspace, 
   (req, res) => res.status(201).json(res.locals.newWorkspace));
 
 // Gets a workspace from the database
 // router.get(['/:workspace_id', '/:zipcodeSearch'], WorkspaceController.getWorkspaceByZip,
-//   (req, res) => res.status(200).json(res.locals.workspace));
-
-//Gets a workspace from a zipcode or name search
-router.post('/search', WorkspaceController.getWorkspaceBySearch,
-  (req, res) => res.status(200).json(res.locals.workspace));
+//   (req, res) => res.status(200).json(res.locals.workspace));n
 
 // Deletes a workspace from the database
 router.delete('/:workspace_id', WorkspaceController.deleteWorkspace,
