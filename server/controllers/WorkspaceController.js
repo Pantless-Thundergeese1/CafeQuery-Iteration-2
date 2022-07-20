@@ -1,5 +1,6 @@
 const { request } = require('express');
 const { Workspace } = require('../models/dbModels');
+const { search } = require('../routes/userRouter');
 
 const WorkspaceController = {
 
@@ -48,25 +49,27 @@ const WorkspaceController = {
       });
   },
 
-  getWorkspaceByZip(req, res, next) {
-    // deconstruct the username that will be sent in the request parameter
-    console.log('Reached the get workspace by zip middleware.');
+  getWorkspaceBySearch(req, res, next) {
+    // deconstruct the search that will be sent in the request parameter
+    console.log('Reached the get workspace by search middleware.');
+    console.log('req.body', req.body);
+    
+    const { searchBarInput } = req.body;
 
-    const { zipcodeSearch } = req.params;
+    if (!isNaN(searchBarInput)) {
+      if (searchBarInput.toString().length !== 5){
+        return next({
+          log: `User input error: entered input was less than 5 digits`,
+          status: 400,
+          message: {err: 'Please enter a 5 digit zipcode'}})
+      };
 
-    if (typeof zipcodeSearch !== 'string' || zipcodeSearch.length !== 5){
-      return next({
-        log: `User input error: entered input was less than 5 digits`,
-        status: 400,
-        message: {err: 'Please enter a 5 digit zipcode'}})
-    };
-
-    // finds workspace from the database
-    Workspace.find({zipcode: zipcodeSearch})
+      // finds workspace from the database by ZIPCODE 
+      Workspace.find({zipcode: searchBarInput})
       .then(data => {
         if (data.length > 0) {
           res.locals.workspace = data;
-          // console.log('Found workspace:', res.locals.workspace);
+          console.log('Found workspace:', res.locals.workspace);
           return next();
         }
         else {
@@ -79,11 +82,41 @@ const WorkspaceController = {
       })
       .catch(err => {
         return next({
-          log: `Error occured in getWorkspaceByZip method of WorkspaceController : ${err}`,
+          log: `Error occured in getWorkspaceBySearch method of WorkspaceController : ${err}`,
           status: 400,
           message: { err: 'An error occured while trying to get workspace'}
         });
       });
+    } else if (typeof searchBarInput === 'string') {
+    const regex = new RegExp(searchBarInput, 'i'); // i for case insensitive 
+      console.log ("regex", regex);
+      
+    // finds workspace from the database by NAME 
+    Workspace.find({workspaceName: {$regex: regex}})
+    .then(data => {
+      if (data.length > 0) {
+        res.locals.workspace = data;
+        console.log('Found workspace:', res.locals.workspace);
+        return next();
+      }
+      else {
+        return next({
+          log: `No locations found with that name.`,
+          status: 400,
+          message: {err: 'No locations found with that name.'}
+        })
+      }
+    })
+    .catch(err => {
+      return next({
+        log: `Error occured in getWorkspaceBySearch method of WorkspaceController : ${err}`,
+        status: 400,
+        message: { err: 'An error occured while trying to get workspace'}
+      });
+    });
+    }
+
+    
   },
 
   // Deletes the workspace from the database
