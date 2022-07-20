@@ -1,5 +1,5 @@
 const { request } = require('express');
-const { User } = require('../models/dbModels');
+const { User, Workspace } = require('../models/dbModels');
 const bcrypt = require('bcryptjs');
 
 const UserController = {
@@ -112,6 +112,24 @@ const UserController = {
         })
       });
   },
+
+  getFavorites(req, res, next) {
+    const {favoritesArray} = req.body; 
+
+    Workspace.find({_id:{$in:favoritesArray}})
+    .then(data => {
+      res.locals.favorites = data;
+      console.log('Favorite workspaces as objects: ', data);
+      return next();
+    })
+    .catch(err => {
+      return next({
+        log: `Error caught in getFavorites method of UserController : ${err}`,
+        status: 400,
+        message: { err: 'An error occured when trying to get user favorites'}
+      })
+    });
+  }, 
 
   deleteFavorite(req, res, next) {
     const { username } = req.body;
