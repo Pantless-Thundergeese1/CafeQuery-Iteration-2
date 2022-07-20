@@ -31,5 +31,5 @@ router.delete('/favorites', UserController.deleteFavorite, (req, res) =>
 router.delete('/:user', UserController.deleteUser, (req, res) =>
   res.status(200).json(res.locals.deletedUser)
 );
-
+//router.get('/profile/:id')
 module.exports = router;

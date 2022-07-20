@@ -15,7 +15,7 @@ const HomePage = () => {
   const [search, setSearch] = useState('');
   const [locations, setLocations] = useState('');
 
-  let locationsLoaded = false;
+  // let locationsLoaded = false;
 
 
 
@@ -29,7 +29,7 @@ const HomePage = () => {
         console.log('this is result', res.data);
       //   console.log(locationsLoaded);
         setLocations(res.data)
-        locationsLoaded = true;
+        // locationsLoaded = true;
         console.log('this is the updated location array', locations);
       })
       //error handling
