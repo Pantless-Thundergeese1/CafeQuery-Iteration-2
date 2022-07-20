@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import NavBar from './NavBar';
+import NavBar from './NavBar.js';
 import styles from '../stylesheets/advancedSearch.scss'
 
-const addSpaceReview = () => {
+const AdvancedSearch = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [zipCode, setZipCode] = useState('');
@@ -13,10 +13,10 @@ const addSpaceReview = () => {
   const [noise, setNoise] = useState('');
   const [outlets, setOutlets] = useState('');
   const [time, setTime] = useState('');
-  const [laptopChecked, setLaptop] = useState(false);
+  const [laptopChecked, setLaptop] = useState('');
   const [busy, setBusy] = useState('');
-  const [outdoorChecked, setOutdoor] = useState(false);
-  const [petChecked, setPetFriendly] = useState(false);
+  const [outdoorChecked, setOutdoor] = useState('');
+  const [petChecked, setPetFriendly] = useState('');
   const [url, setUrlAddress] = useState('');
   const [food, setFood] = useState('');
   const [coffee, setCoffee] = useState('');
@@ -57,16 +57,16 @@ const addSpaceReview = () => {
       }
     })
 
-    console.log(reqBody)
+    // console.log(reqBody)
 
     // send POST request to server with new workspace info in body
-    // axios.post('/advancedSearch', reqBody)
-    //   .then(res => {
-    //     console.log('Response from advanced search: ', res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   })
+    axios.post('/advancedSearch', reqBody)
+      .then(res => {
+        console.log('Response from advanced search: ', res);
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
   
   return (
@@ -160,86 +160,100 @@ const addSpaceReview = () => {
                 </select>
             </label>
           </div>
-          
-          <label>
-              Wifi:
-              <select 
-              value={wifi}
-              onChange={(e) => setWifi(e.target.value)}>
-              <option value='' selected disabled hidden>Select</option>
-              <option value='Fast'>High speed and reliable</option>
-              <option value='Moderate'>Moderate speed and reliable</option>
-              <option value='Slow'>Slow and spotty</option>
-              <option value='None'>Not available</option>
-              </select>
-          </label>
-          <label>
-          Noise level:
-              <select 
-              value={noise}
-              onChange={(e) => setNoise(e.target.value)}>
-              <option value='' selected disabled hidden>Select</option>
-              <option value='Quiet'>Quiet</option>
-              <option value='Moderate'>Moderate</option>
-              <option value='Loud'>Loud</option>
-              </select>
-          </label>
-          <label>
-          Outlets:
-              <select 
-              value={outlets}
-              onChange={(e) => setOutlets(e.target.value)}>
-              <option value='' selected disabled hidden>Select</option>
-              <option value='Many'>Many and accessible</option>
-              <option value='Medium'>Medium</option>
-              <option value='Few'>Few</option>
-              </select>
-          </label>
-          <label>
-          Time Limit:
-              <select 
-              value={time}
-              onChange={(e) => setTime(e.target.value)}>
-              <option value='' selected disabled hidden>Select</option>
-              <option value='None'>No time limit</option>
-              <option value='1'>One hour </option>
-              <option value='2'>Two hours </option>
-              </select>
-          </label>
-          <label>
-          Laptop restrictions:
-              <input type="checkbox"
-              checked={laptopChecked}
-              onChange={(e) => setLaptop(e.target.checked)}
-              />
-          </label>
-          <label>
-          Busy:
-              <select 
-              value={busy}
-              onChange={(e) => setBusy(e.target.value)}>
-              <option value='' selected disabled hidden>Select</option>
-              <option value='Very'>Very busy</option>
-              <option value='Moderate'>Moderately busy </option>
-              <option value='Slow'>Slow</option>
-              </select>
-          </label>
-          <label>
-          Outdoor seating:
-              <input type="checkbox"
-              checked={outdoorChecked}
-              onChange={(e) => setOutdoor(e.target.checked)}
-              />
-          </label>
-          <label>
-          Pet friendly:
-              <input type="checkbox"
-              checked={petChecked}
-              onChange={(e) => setPetFriendly(e.target.checked)}
-              />
-          </label>
-          
-          
+          <div className="place">
+             <div className="working">
+              <label>
+                  Wifi:
+                  <select 
+                  value={wifi}
+                  onChange={(e) => setWifi(e.target.value)}>
+                  <option value='' selected disabled hidden>Select</option>
+                  <option value='Fast'>High speed and reliable</option>
+                  <option value='Moderate'>Moderate speed and reliable</option>
+                  <option value='Slow'>Slow and spotty</option>
+                  <option value='None'>Not available</option>
+                  </select>
+              </label>
+              <label>
+                Noise level:
+                    <select 
+                    value={noise}
+                    onChange={(e) => setNoise(e.target.value)}>
+                    <option value='' selected disabled hidden>Select</option>
+                    <option value='Quiet'>Quiet</option>
+                    <option value='Moderate'>Moderate</option>
+                    <option value='Loud'>Loud</option>
+                    </select>
+                </label>
+                <label>
+                Outlets:
+                    <select 
+                    value={outlets}
+                    onChange={(e) => setOutlets(e.target.value)}>
+                    <option value='' selected disabled hidden>Select</option>
+                    <option value='Many'>Many and accessible</option>
+                    <option value='Medium'>Medium</option>
+                    <option value='Few'>Few</option>
+                    </select>
+                </label>
+                <label>
+                Time Limit:
+                    <select 
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}>
+                    <option value='' selected disabled hidden>Select</option>
+                    <option value='None'>No time limit</option>
+                    <option value='1'>One hour </option>
+                    <option value='2'>Two hours </option>
+                    </select>
+                </label>
+                <label>
+                Laptop:
+                    <select 
+                    value={laptopChecked}
+                    onChange={(e) => setLaptop(e.target.value)}>
+                    <option value='' selected disabled hidden>Select</option>
+                    <option value='Allowed'>Allowed</option>
+                    <option value='Not Allowed'>Not Allowed</option>
+                    </select>
+                </label>
+            </div>
+            <div className="environment">
+              <label>
+              Busy:
+                  <select 
+                  value={busy}
+                  onChange={(e) => setBusy(e.target.value)}>
+                  <option value='' selected disabled hidden>Select</option>
+                  <option value='Very'>Very busy</option>
+                  <option value='Moderate'>Moderately busy </option>
+                  <option value='Slow'>Slow</option>
+                  </select>
+              </label>
+              <label>
+              Outdoor seating:
+                  <select 
+                  value={outdoorChecked}
+                  onChange={(e) => setOutdoor(e.target.value)}>
+                  <option value='' selected disabled hidden>Select</option>
+                  <option value='Allowed'>Available</option>
+                  <option value='Not Allowed'>Not available</option>
+                  </select>
+              </label>
+              <label>
+              Pet friendly:
+                  <select 
+                  value={petChecked}
+                  onChange={(e) => setPetFriendly(e.target.value)}>
+                  <option value='' selected disabled hidden>Select</option>
+                  <option value='Allowed'>Allowed</option>
+                  <option value='Not Allowed'>Not Allowed</option>
+                  </select>
+              </label>
+            </div>
+          </div>
+           
+            
           <input
             type='Additional'
             placeholder='Other'
@@ -253,8 +267,9 @@ const addSpaceReview = () => {
       </>
     );
   };
+
 //submit post to db on submit
-export default addSpaceReview;
+export default AdvancedSearch;
 
   
 
