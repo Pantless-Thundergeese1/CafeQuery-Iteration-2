@@ -9,7 +9,7 @@ const NavBar = () => {
 
     let navigate = useNavigate();
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     return (
         <Navbar className="navbar" expand="lg">
         <img src="./option1.png" className="icon" alt=""/>
@@ -31,9 +31,14 @@ const NavBar = () => {
                 <LinkContainer to="/signUp">
                     <Nav.Link>Sign Up</Nav.Link>
                 </LinkContainer>
-                <button type ="button" className="logout" onClick={()=>{
-                    localStorage.removeItem('user')
-                    navigate("/")}}>Logout</button>     
+                <button 
+                    type ="button" 
+                    className="logout" 
+                    style={{border: 'none', background: 'none', color : 'rgba(0,0,0,.55)'}}
+                    onClick={()=>{
+                        localStorage.removeItem('user')
+                        navigate("/")}}
+                >Logout</button>     
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
