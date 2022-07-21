@@ -11,6 +11,7 @@ h1 {
 
 .navbar {
   background-color: $peach;
+  z-index: 10;
 }
 
 .navbar-brand {
@@ -20,6 +21,7 @@ h1 {
 
 body {
   background-image: url('./background.jpg');
+  background-size: auto 100vh;
 }
 
 .searchContainer {
