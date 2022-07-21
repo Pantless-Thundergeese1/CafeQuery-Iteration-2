@@ -94,23 +94,44 @@ const UserController = {
     const { username, workspace_id } = req.body;
     console.log('username', username);
     console.log('workspace_id', workspace_id);
-    
-    // find based on username 
-    // push the workspace_id to the favorites array
-    //use $pull to delete a workspace from favorites!!
-    User.findOneAndUpdate({ username: username }, { "$push": { favorites: workspace_id }})
-      .then(data => {
-        res.locals.updatedUser = data;
-        console.log('Updated user: ', data);
-        return next();
-      })
+
+    //check if this workspace_id already exists in users favorites array before pushing 
+      //do a findOne and look for user 
+      User.findOne({username: username})
+      .then(user => {
+        if (user.favorites.includes(workspace_id)) {
+          //this workspace already exists in user favorites, so don't add it 
+  
+          console.log('This workspace is already listed in the user favorites, so it has not been added again')
+          res.locals.updatedUser = false;
+
+          return next();
+
+          } else {
+          //this workspace doesn't exist in user favorites, so we want to add it 
+          User.findOneAndUpdate({ username: username }, { "$push": { favorites: workspace_id }})
+          .then(data => {
+            res.locals.updatedUser = data;
+            console.log('Updated user: ', data);
+            return next();
+          })
+          .catch(err => {
+            return next({
+              log: `Error caught in addFavorite method of UserController : ${err}`,
+              status: 400,
+              message: { err: 'An error occured when trying to add a new favorite'}
+            })
+          });
+          }
+      }
+      )
       .catch(err => {
         return next({
           log: `Error caught in addFavorite method of UserController : ${err}`,
           status: 400,
-          message: { err: 'An error occured when trying to add a new favorite'}
+          message: { err: 'An error occured when trying see if workspace already was listed in favorites'}
         })
-      });
+      });    
   },
 
   getFavorites(req, res, next) {
