@@ -7,18 +7,18 @@ const DisplaySpaces = (props) => {
 //display information received in the result body 
 //from the databse query to locations
 console.log('props.result', props.resultObject)
-console.log('user ID', JSON.parse(localStorage.getItem('user'))._id)
-console.log('username for user', JSON.parse(localStorage.getItem('user')).username)
+console.log('user ID', JSON.parse(sessionStorage.getItem('user'))._id)
+console.log('username for user', JSON.parse(sessionStorage.getItem('user')).username)
 console.log('coffeeshop Id', props.resultObject._id)
 
 
 //define reqBody
 const reqBody = {
-  _id: JSON.parse(localStorage.getItem('user'))._id ,
-  username: JSON.parse(localStorage.getItem('user')).username ,
+  _id: JSON.parse(sessionStorage.getItem('user'))._id ,
+  username: JSON.parse(sessionStorage.getItem('user')).username ,
   workspace_id: props.resultObject._id
 }
-
+//
 
 const handleClick = (e) => {
   e.preventDefault()
