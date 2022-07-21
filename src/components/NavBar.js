@@ -9,7 +9,7 @@ const NavBar = () => {
 
     let navigate = useNavigate();
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     return (
         <Navbar className="navbar" expand="lg">
         <img src="./option1.png" className="icon" alt=""/>
@@ -32,7 +32,7 @@ const NavBar = () => {
                     <Nav.Link>Sign Up</Nav.Link>
                 </LinkContainer>
                 <button type ="button" className="logout" onClick={()=>{
-                    localStorage.removeItem('user')
+                    sessionStorage.removeItem('user')
                     navigate("/")}}>Logout</button>     
                 </Nav>
             </Navbar.Collapse>

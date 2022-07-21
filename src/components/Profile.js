@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from "./NavBar"
 import DisplayContainer from "../containers/DisplayContainer"
-
+import ProfileCard from "./ProfileCard"
+import DisplayProfileContainer from "../containers/DisplayProfileContainer"
 // user/favorite/:_id
 const Profile = () => { 
 
     const [locations, setLocations] = useState();    
 
     //getting user object because it is in local storage after logging in
-    const user = JSON.parse(localStorage.getItem('user')); 
+    const user = JSON.parse(sessionStorage.getItem('user')); 
     const _id = user._id;
 
 
@@ -27,7 +28,7 @@ const Profile = () => {
                 <>
                     <Navbar/>
                     <div>
-                    <DisplayContainer locations = {locations}/>
+                    <DisplayProfileContainer locations = {locations}/>
                     </div>
                 </>)   
         })
@@ -38,7 +39,7 @@ const Profile = () => {
             <>
                 <Navbar/>
                 <div>
-                <DisplayContainer locations = {locations}/>
+                <DisplayProfileContainer locations = {locations}/>
                 </div>
             </>)  
     } else return null
