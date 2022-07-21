@@ -8,7 +8,7 @@ const DisplayCards = (props) => {
 //from the databse query to locations
 console.log('user ID', JSON.parse(sessionStorage.getItem('user'))._id)
 console.log('username for user', JSON.parse(sessionStorage.getItem('user')).username)
-console.log('coffeeshop Id', props.resultObjects._id)
+console.log('coffeeshop Id', props.resultObject._id)
 
 
 //define reqBody
@@ -27,7 +27,7 @@ const handleClick = (e) => {
 
 
   fetch('user/favorites', {
-    method: 'PUT',
+    method: 'DELETE',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(reqBody)})
     .then(data => data.json())

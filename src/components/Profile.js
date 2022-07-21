@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "./NavBar"
 import DisplayContainer from "../containers/DisplayContainer"
 import ProfileCard from "./ProfileCard"
+import DisplayProfileContainer from "../containers/DisplayProfileContainer"
 // user/favorite/:_id
 const Profile = () => { 
 
@@ -27,7 +28,7 @@ const Profile = () => {
                 <>
                     <Navbar/>
                     <div>
-                    <ProfileCard locations = {locations}/>
+                    <DisplayProfileContainer locations = {locations}/>
                     </div>
                 </>)   
         })
@@ -38,7 +39,7 @@ const Profile = () => {
             <>
                 <Navbar/>
                 <div>
-                <ProfileCard locations = {locations}/>
+                <DisplayProfileContainer locations = {locations}/>
                 </div>
             </>)  
     } else return null
