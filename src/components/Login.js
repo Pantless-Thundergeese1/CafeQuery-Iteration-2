@@ -41,9 +41,9 @@ const Login = () => {
         }
         else {
         console.log('formattedData:' , formattedData)
-        localStorage.setItem(
+        sessionStorage.setItem(
           'user',
-          JSON.stringify({...formattedData})
+          JSON.stringify({...formattedData, password: ""})
         );
         navigate('/home')
         }

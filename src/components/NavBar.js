@@ -9,7 +9,7 @@ const NavBar = () => {
 
     let navigate = useNavigate();
 
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(sessionStorage.getItem('user'));
     return (
         <Navbar className="navbar" expand="lg">
         <img src="./option1.png" className="icon" alt=""/>
